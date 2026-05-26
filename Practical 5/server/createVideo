@@ -1,0 +1,23 @@
+const videoUpload = await uploadFile(
+  req.files.video[0],
+  'videos'
+);
+
+const thumbnailUpload = await uploadFile(
+  req.files.thumbnail[0],
+  'thumbnails'
+);
+
+const video = await prisma.video.create({
+  data: {
+    caption,
+    audioName,
+    userId: req.user.id,
+
+    videoUrl: videoUpload.publicUrl,
+    thumbnailUrl: thumbnailUpload.publicUrl,
+
+    videoStoragePath: videoUpload.path,
+    thumbnailStoragePath: thumbnailUpload.path,
+  },
+});
